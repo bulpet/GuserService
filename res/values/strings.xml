@@ -4,5 +4,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string-array name="CuteMessages">
+        <item >I just talked with ##n conversation lasted ##d. Name - ##n, Time - ##d</item>
+        <item >Мне сейчас звонил ##n Мы с ним болтали ##d</item>
+    </string-array>
 
 </resources>

