@@ -56,9 +56,9 @@ public class Notify {
 			// icon has also been specified, in which case the small icon will
 			// be moved to the right-hand side.
 			
-			//builder.setSmallIcon(R.drawable.ic_launcher);
+			builder.setSmallIcon(R.drawable.ic_launcher);
 			
-			builder.addAction(R.drawable.ic_launcher, "show me", pendingIntent);
+			//builder.addAction(R.drawable.ic_launcher, "show me", pendingIntent);
 			// Add a large icon to the notification (and the ticker on some
 			// devices). In the platform template, this image will be shown on
 			// the left of the notification view in place of the small icon
