@@ -1,7 +1,8 @@
 package com.guser.service;
 
 import com.guser.service.Messages.Messages;
-import com.guser.service.Messages.Notify;
+import com.guser.service.Notify.Notify;
+import com.guser.service.common.GuserMessage;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -21,7 +22,7 @@ public class CallsContentObserver extends ContentObserver {
 
 	@Override
 	public boolean deliverSelfNotifications() {
-		return false;
+		return true;
 	}
 
 	public void logCallLog() {
@@ -45,23 +46,25 @@ public class CallsContentObserver extends ContentObserver {
 		msg.setName(c.getString(c.getColumnIndex(CallLog.Calls.CACHED_NAME)));
 		msg.setLabel(c.getString(c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_LABEL)));
 		msg.setCallType(c.getLong(c.getColumnIndex(CallLog.Calls.TYPE)));
+		
+		int id = c.getInt(c.getColumnIndex(CallLog.Calls._ID));
+		
 
 		c.close();
 		
 		if (msg.getName() != null) {
 
-			String message = msg.getRandomMessage();
-			Log.i("Message", message);
+			GuserMessage message = msg.getRandomMessage();
+			Log.i("Message", message.getMsg_name());
 
 			Notify notify = new Notify(this.context);
-			notify.showNotify("Guser message", message);
+			notify.showNotify(message, id);
 		}
 	}
 
 	public void onChange(boolean selfChange) {
 		super.onChange(selfChange);
-		Log.d("PhoneService", "StringsContentObserver.onChange( " + selfChange
-				+ ")");
+		Log.d("PhoneService", "StringsContentObserver.onChange( " + selfChange + ")");
 		logCallLog();
 	}
 

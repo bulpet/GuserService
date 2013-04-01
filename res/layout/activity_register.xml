@@ -1,14 +1,93 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:textAlignment="gravity" >
 
     <TextView
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginBottom="58dp"
         android:text="@string/hello_world"
-        tools:context=".RegisterActivity" />
+        tools:context=".activity.RegisterActivity" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:height="@dimen/com_facebook_profilepictureview_preset_size_normal"
+        android:inputType="textMultiLine|textLongMessage"
+        android:maxEms="12"
+        android:width="@dimen/text_editor" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="15dp"
+        android:onClick="SaveClick"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btn_H"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="42dp"
+        android:text="#H" />
+
+    <Button
+        android:id="@+id/btn_M"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_H"
+        android:layout_alignBottom="@+id/btn_H"
+        android:layout_toRightOf="@+id/btn_H"
+        android:text="#M" />
+
+    <Button
+        android:id="@+id/btn_S"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_M"
+        android:layout_alignBottom="@+id/btn_M"
+        android:layout_toRightOf="@+id/btn_M"
+        android:text="#S" />
+
+    <Button
+        android:id="@+id/btn_C"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_S"
+        android:layout_alignBottom="@+id/btn_S"
+        android:layout_toRightOf="@+id/btn_S"
+        android:text="#C" />
+
+    <Button
+        android:id="@+id/btn_FT"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btn_C"
+        android:layout_alignBottom="@+id/btn_C"
+        android:layout_toRightOf="@+id/btn_C"
+        android:text="#FT" />
 
 </RelativeLayout>

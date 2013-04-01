@@ -22,7 +22,7 @@ public class CallListenerService extends Service {
 	      	.getContentResolver()
 	      		.registerContentObserver(
 	      				android.provider.CallLog.Calls.CONTENT_URI, true,
-	      					new CallsContentObserver(handler,this)); 
+	      					new CallsContentObserver(handler,this.getApplicationContext())); 
 		  
 	  }
 

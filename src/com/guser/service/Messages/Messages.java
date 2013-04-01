@@ -1,9 +1,11 @@
 package com.guser.service.Messages;
 
-import java.util.Random;
-
 import android.content.Context;
 import com.guser.service.R;
+import com.guser.service.DB.DatabaseHandler;
+import com.guser.service.common.GlobalVariables;
+import com.guser.service.common.GuserCallTime;
+import com.guser.service.common.GuserMessage;
 
 public class Messages {
 
@@ -19,28 +21,30 @@ public class Messages {
 		this.context = context;
 	}
 
-	public String getRandomMessage() {
-		String[] msgArr = context.getResources().getStringArray(
-				R.array.CuteMessages);
-		Random r = new Random();
-
-		int count = msgArr.length;
-		int i = r.nextInt(count);
+	public GuserMessage getRandomMessage() {
 
 		Long tmp = this.getDuration();
-		int hours = (int) (tmp / 3600);
-		int minutes = (int) ((tmp % 3600) / 60);
-		int seconds = (int) (tmp % 60);
+		DatabaseHandler db = new DatabaseHandler(this.context);
+		
+		GuserMessage message = db.GetRandomMessage();
+		GuserCallTime call = new GuserCallTime(tmp);
+				
+		message.setMsg_caption(formatStringWithGuserPattern(message.getMsg_caption(),call));
+		message.setMsg_description(formatStringWithGuserPattern(message.getMsg_description(),call));
+		message.setMsg_name(formatStringWithGuserPattern(message.getMsg_name(),call));
+		       
+		return message;
 
-		String message = msgArr[i].toString();
-		String dateString = String.format("%02d:%02d:%02d", hours, minutes,
-				seconds);
-		String formatedMessage = message.replaceAll("##n", this.getName())
-				.replaceAll("##d", dateString);
-
-		return formatedMessage;
 	}
 
+	public String formatStringWithGuserPattern(String text,GuserCallTime call)
+	{
+		return text.replaceAll(GlobalVariables.PATTERN_ContactNameMask, this.getName())
+				.replaceAll(GlobalVariables.PATTERN_FullTimeMask, String.format("%02d:%02d:%02d", call.getHours(), call.getMinutes(), call.getSeconds()))
+				.replaceAll(GlobalVariables.PATTERN_HourMask, String.format("%02d",call.getHours()))
+				.replaceAll(GlobalVariables.PATTERN_MinuteMask, String.format("%02d",call.getMinutes()))
+				.replaceAll(GlobalVariables.PATTERN_SecondeMask, String.format("%02d",call.getSeconds()));
+	}
 	public String getName() {
 
 		return name == null ? "incognito" : name;
