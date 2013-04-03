@@ -1,7 +1,5 @@
 package com.guser.service.common;
 
-import com.guser.service.CallsContentObserver;
-
 
 public class GlobalVariables {
 	
@@ -73,5 +71,4 @@ public class GlobalVariables {
 //
 //	  };
 
-    public CallsContentObserver callObserver;
 }

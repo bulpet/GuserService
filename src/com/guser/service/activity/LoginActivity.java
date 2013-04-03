@@ -38,7 +38,7 @@ import com.facebook.widget.LoginButton.OnErrorListener;
 public class LoginActivity extends Activity {
 
 	 private static final String APP_ID = "443702672382079";
-	 CallsContentObserver GuserCallObserver;
+	 //CallsContentObserver GuserCallObserver;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,8 +52,8 @@ public class LoginActivity extends Activity {
 //        GlobalVariables GV = new GlobalVariables();
 //        GV.callObserver = new CallsContentObserver(new Handler(), this.getApplicationContext());
         
-		Object tmp = new LastFM().execute("","");
-		GuserMessage msg = (GuserMessage)tmp;
+//		Object tmp = new LastFM().execute("","");
+//		GuserMessage msg = (GuserMessage)tmp;
 		
 //		JSONObject j = (JSONObject)json;
 //		
@@ -72,13 +72,12 @@ public class LoginActivity extends Activity {
 		//"track"
 		
 		
-		GuserCallObserver = new CallsContentObserver(new Handler(), this.getApplicationContext());
+		CallsContentObserver GuserCallObserver = new CallsContentObserver(new Handler(),this.getBaseContext());
 		
 		this.getApplicationContext()
-      	.getContentResolver()
-      		.registerContentObserver(
-      				android.provider.CallLog.Calls.CONTENT_URI, false, GuserCallObserver); 
-        
+		      	.getContentResolver()
+		      		.registerContentObserver(android.provider.CallLog.Calls.CONTENT_URI, false, GuserCallObserver); 
+	        
         Session session = Session.getActiveSession();
 		
         if (session != null && session.isOpened())
@@ -136,7 +135,7 @@ public class LoginActivity extends Activity {
 		 @Override
 		    public void onDestroy() {
 
-		     	getContentResolver().unregisterContentObserver(GuserCallObserver);
+		     	//getContentResolver().unregisterContentObserver(GuserCallObserver);
 		     	super.onDestroy();
 		    }
 }

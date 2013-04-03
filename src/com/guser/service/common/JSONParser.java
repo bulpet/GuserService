@@ -17,28 +17,28 @@ import android.text.TextUtils;
 
 public class JSONParser {
 	 
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
- 
+    URLConnection connection = null;
+    
     // constructor
     public JSONParser() {
- 
+
     }
  
     public JSONObject getJSONFromUrl(String url) {
  
         // Making HTTP request
-    	URLConnection connection = null;
+   	
 		try 
 		{
 			connection = new URL(url).openConnection();
 		} catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return null;
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return null;
 		}
  
 		BufferedReader reader = null;
@@ -52,6 +52,7 @@ public class JSONParser {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return null;
 		}
 
 		
@@ -64,6 +65,7 @@ public class JSONParser {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+			return null;
 		}
 		
 		String tmp = builder.toString();
@@ -72,9 +74,9 @@ public class JSONParser {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		} 
- 
-		connection = null;
+
         // return JSON String
         return object;
  

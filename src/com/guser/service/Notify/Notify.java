@@ -34,26 +34,28 @@ public class Notify {
 			Bundle BundleMessage = new Bundle();
 			//BundleMessage.putString("picture", message.getMsg_picture());
 
-//			BundleMessage.putString("picture","http://pixabay.com/static/uploads/photo/2012/05/02/22/07/red-46477_640.png?i");
-//			if(String.valueOf("") != message.getMsg_link())
-//			{
-//				BundleMessage.putString("name", message.getMsg_name());
-//				BundleMessage.putString("link", message.getMsg_link());
-//				BundleMessage.putString("caption", message.getMsg_caption());
-//				BundleMessage.putString("description", message.getMsg_description());
-//			}
-//			else
-//			{
-//				BundleMessage.putString("message", message.getMsg_description());
-//			}
+			//BundleMessage.putString("picture","http://pixabay.com/static/uploads/photo/2012/05/02/22/07/red-46477_640.png?i");
+		
+			if(String.valueOf("") != message.getMsg_link())
+			{
+				BundleMessage.putString("name", message.getMsg_name());
+				BundleMessage.putString("link", message.getMsg_link());
+				BundleMessage.putString("caption", message.getMsg_caption());
+				BundleMessage.putString("description", message.getMsg_description());
+				BundleMessage.putString("picture", message.getMsg_picture());
+			}
+			else
+			{
+				BundleMessage.putString("message", message.getMsg_description());
+			}
 	        
-			BundleMessage.putString("picture","http://pixabay.com/static/uploads/photo/2012/05/02/22/07/red-46477_640.png?i");
-			
-				BundleMessage.putString("name", "Pink Floyd");
-				BundleMessage.putString("link", "http://www.lyricsnmusic.com/pink-floyd/money-lyrics/24441721");
-				BundleMessage.putString("caption", "Money");
-				BundleMessage.putString("description", "Money, get away \r\nGet a good job with good pay and you're okay \r\nMoney, it's a gas\r\nGrab that cash with both hands and make a stash\r\nNew car, caviar, ...");
-			
+//			BundleMessage.putString("picture","http://pixabay.com/static/uploads/photo/2012/05/02/22/07/red-46477_640.png?i");
+//			
+//			BundleMessage.putString("name", "Pink Floyd");
+//			BundleMessage.putString("link", "http://www.lyricsnmusic.com/pink-floyd/money-lyrics/24441721");
+//			BundleMessage.putString("caption", "Money");
+//			BundleMessage.putString("description", "Money, get away \n Get a good<center></center> job with good pay and you're okay \r\nMoney, it's a gas\r\nGrab that cash with both hands and make a stash\r\nNew car, caviar, ...");
+//			
 			
 			
 			
@@ -67,11 +69,11 @@ public class Notify {
 			Builder builder = new Notification.Builder(this.context);
 			
 			// Set the first line of text in the platform notification template.
-			builder.setContentTitle(message.getMsg_name());
+			builder.setContentTitle(BundleMessage.getString("name"));
 			
 			// Set the second line of text in the platform notification
 			// template.
-			builder.setContentText(message.getMsg_caption());
+			builder.setContentText(BundleMessage.getString("caption"));
 			
 			// Set the third line of text in the platform notification template.
 			// Don't use if you're also using setProgress(int, int, boolean);
@@ -79,7 +81,7 @@ public class Notify {
 			//builder.setSubText(subText);
 			
 			//set big text in android 4.1
-			builder.setStyle(new Notification.BigTextStyle().bigText(message.getMsg_description()));
+			builder.setStyle(new Notification.BigTextStyle().bigText(BundleMessage.getString("description")));
 
 			// Set the large number at the right-hand side of the notification.
 			// This is equivalent to setContentInfo, although it might show the

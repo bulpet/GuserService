@@ -1,8 +1,11 @@
 package com.guser.service;
 
+import java.util.concurrent.ExecutionException;
+
 import com.guser.service.Messages.Messages;
 import com.guser.service.Notify.Notify;
 import com.guser.service.common.GuserMessage;
+import com.guser.service.common.LastFM;
 
 import android.content.Context;
 import android.database.ContentObserver;
@@ -32,10 +35,15 @@ public class CallsContentObserver extends ContentObserver {
 				CallLog.Calls.DURATION, CallLog.Calls.TYPE };
 
 		Cursor c;
-		c = this.context.getContentResolver().query(
-				Uri.parse("content://call_log/calls"), columns, null, null,
-				"Calls._ID DESC"); // last record first
+//		c = this.context.getContentResolver().query(
+//				Uri.parse("content://call_log/calls"), columns, null, null,
+//				"Calls._ID DESC"); // last record first
 
+		c = this.context.getContentResolver().query(
+				CallLog.Calls.CONTENT_URI, columns, null, null,
+				CallLog.Calls.DATE + " DESC"); // last record first
+
+		
 		c.moveToFirst();
 
 		Messages msg = new Messages(this.context);
@@ -54,7 +62,18 @@ public class CallsContentObserver extends ContentObserver {
 		
 		if (msg.getName() != null) {
 
-			GuserMessage message = msg.getRandomMessage();
+			//GuserMessage message = msg.getRandomMessage();
+			GuserMessage message=null;
+			try {
+				message = new LastFM().execute("").get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			Log.i("Message", message.getMsg_name());
 
 			Notify notify = new Notify(this.context);
