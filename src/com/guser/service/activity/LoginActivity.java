@@ -1,6 +1,12 @@
 package com.guser.service.activity;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.facebook.Request;
 import com.facebook.Response;
@@ -12,6 +18,8 @@ import com.guser.service.R;
 import com.guser.service.R.layout;
 import com.guser.service.R.menu;
 import com.guser.service.common.GlobalVariables;
+import com.guser.service.common.GuserMessage;
+import com.guser.service.common.LastFM;
 import com.guser.service.common.fillMessages;
 
 import android.os.Bundle;
@@ -44,6 +52,26 @@ public class LoginActivity extends Activity {
 //        GlobalVariables GV = new GlobalVariables();
 //        GV.callObserver = new CallsContentObserver(new Handler(), this.getApplicationContext());
         
+		Object tmp = new LastFM().execute("","");
+		GuserMessage msg = (GuserMessage)tmp;
+		
+//		JSONObject j = (JSONObject)json;
+//		
+//		try {
+//			JSONArray jarr= j.getJSONArray("track");
+//			for(int i=0;i<jarr.length();i++)
+//			{
+//				String tmp = jarr.getJSONObject(i).getString("name");
+//				Log.i("LAST-FM", "name - " + tmp);
+//			}
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
+		//"track"
+		
+		
 		GuserCallObserver = new CallsContentObserver(new Handler(), this.getApplicationContext());
 		
 		this.getApplicationContext()
