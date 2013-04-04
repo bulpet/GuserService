@@ -1,11 +1,19 @@
 package com.guser.service.Messages;
 
+import java.util.concurrent.ExecutionException;
+
 import android.content.Context;
+import android.database.Cursor;
+import android.provider.CallLog;
+import android.util.Log;
+
 import com.guser.service.R;
 import com.guser.service.DB.DatabaseHandler;
+import com.guser.service.Notify.Notify;
 import com.guser.service.common.GlobalVariables;
 import com.guser.service.common.GuserCallTime;
 import com.guser.service.common.GuserMessage;
+import com.guser.service.common.LastFM;
 
 public class Messages {
 
@@ -21,6 +29,63 @@ public class Messages {
 		this.context = context;
 	}
 
+	public void Quack() {
+		String columns[] = new String[] { CallLog.Calls._ID,
+				CallLog.Calls.CACHED_NAME, CallLog.Calls.CACHED_NUMBER_LABEL,
+				CallLog.Calls.NUMBER, CallLog.Calls.DATE,
+				CallLog.Calls.DURATION, CallLog.Calls.TYPE };
+
+		Cursor c;
+//		c = this.context.getContentResolver().query(
+//				Uri.parse("content://call_log/calls"), columns, null, null,
+//				"Calls._ID DESC"); // last record first
+
+		c = this.context.getContentResolver().query(
+				CallLog.Calls.CONTENT_URI, columns, null, null,
+				CallLog.Calls.DATE + " DESC"); // last record first
+
+		
+		c.moveToFirst();
+
+		Messages msg = new Messages(this.context);
+
+		Long type = c.getLong(c.getColumnIndex(CallLog.Calls.TYPE));
+		Log.i("CallLog.Calls.TYPE", type.toString());
+		
+		msg.setDuration(c.getLong(c.getColumnIndex(CallLog.Calls.DURATION)));
+		msg.setDialed(c.getLong(c.getColumnIndex(CallLog.Calls.DATE)));
+		msg.setNumber(c.getString(c.getColumnIndex(CallLog.Calls.NUMBER)));
+		msg.setName(c.getString(c.getColumnIndex(CallLog.Calls.CACHED_NAME)));
+		msg.setLabel(c.getString(c.getColumnIndex(CallLog.Calls.CACHED_NUMBER_LABEL)));
+		msg.setCallType(c.getLong(c.getColumnIndex(CallLog.Calls.TYPE)));
+		
+		int id = c.getInt(c.getColumnIndex(CallLog.Calls._ID));
+		
+
+		c.close();
+		
+		if (msg.getName() != null) {
+
+			//GuserMessage message = msg.getRandomMessage();
+			GuserMessage message=null;
+			try {
+				message = new LastFM().execute("").get();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Log.i("Message", message.getMsg_name());
+
+			Notify notify = new Notify(this.context);
+			notify.showNotify(message, id);
+		}
+	}
+
+	
 	public GuserMessage getRandomMessage() {
 
 		Long tmp = this.getDuration();
@@ -45,6 +110,7 @@ public class Messages {
 				.replaceAll(GlobalVariables.PATTERN_MinuteMask, String.format("%02d",call.getMinutes()))
 				.replaceAll(GlobalVariables.PATTERN_SecondeMask, String.format("%02d",call.getSeconds()));
 	}
+	
 	public String getName() {
 
 		return name == null ? "incognito" : name;

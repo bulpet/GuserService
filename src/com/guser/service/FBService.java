@@ -14,6 +14,7 @@ import com.facebook.*;
 import com.facebook.android.Facebook;
 import com.facebook.model.*;
 import com.guser.service.common.GlobalVariables;
+import com.guser.service.common.GuserMessage;
 
 import android.app.NotificationManager;
 import android.app.Service;
@@ -47,6 +48,9 @@ public class FBService  extends Service {
 //				BundleMessage.putString("link", "https://developers.facebook.com/android");
 //				BundleMessage.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
 				
+				GuserMessage message = new GuserMessage(BundleGuserMessage);
+				message.Log();
+				
 				publishStory(BundleGuserMessage);
 				
 				NotificationManager notificationManger = (NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -54,7 +58,6 @@ public class FBService  extends Service {
 			}
 	        			
 			return START_STICKY;
-		 
 	 }
 	 
 	 private void publishStory(Bundle BundleGuserMessage) {

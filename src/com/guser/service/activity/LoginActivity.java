@@ -74,9 +74,9 @@ public class LoginActivity extends Activity {
 		
 		CallsContentObserver GuserCallObserver = new CallsContentObserver(new Handler(),this.getBaseContext());
 		
-		this.getApplicationContext()
-		      	.getContentResolver()
-		      		.registerContentObserver(android.provider.CallLog.Calls.CONTENT_URI, false, GuserCallObserver); 
+//		this.getApplicationContext()
+//		      	.getContentResolver()
+//		      		.registerContentObserver(android.provider.CallLog.Calls.CONTENT_URI, false, GuserCallObserver); 
 	        
         Session session = Session.getActiveSession();
 		

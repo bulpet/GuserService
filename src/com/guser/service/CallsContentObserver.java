@@ -48,6 +48,9 @@ public class CallsContentObserver extends ContentObserver {
 
 		Messages msg = new Messages(this.context);
 
+		Long type = c.getLong(c.getColumnIndex(CallLog.Calls.TYPE));
+		Log.i("CallLog.Calls.TYPE", type.toString());
+		
 		msg.setDuration(c.getLong(c.getColumnIndex(CallLog.Calls.DURATION)));
 		msg.setDialed(c.getLong(c.getColumnIndex(CallLog.Calls.DATE)));
 		msg.setNumber(c.getString(c.getColumnIndex(CallLog.Calls.NUMBER)));

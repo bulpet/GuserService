@@ -1,5 +1,8 @@
 package com.guser.service.common;
 
+import android.os.Bundle;
+import android.util.Log;
+
 public class GuserMessage {
 
 	String msg_name;
@@ -10,11 +13,31 @@ public class GuserMessage {
 	int msg_id;
 	Boolean msg_call_dir;
 	
-	public GuserMessage()
-	{
-		
-	}
+	public GuserMessage(){}
 	
+	public GuserMessage(Bundle bundleDate)
+	{
+		if(bundleDate.containsKey("name")==true)
+			setMsg_name(bundleDate.getString("name"));
+		
+		if(bundleDate.containsKey("caption")==true)
+			setMsg_caption(bundleDate.getString("caption"));
+
+		if(bundleDate.containsKey("description")==true)
+			setMsg_description(bundleDate.getString("description"));
+		
+		if(bundleDate.containsKey("link")==true)
+			setMsg_link(bundleDate.getString("link"));
+		
+		if(bundleDate.containsKey("picture")==true)
+			setMsg_picture(bundleDate.getString("picture"));
+		
+		if(bundleDate.containsKey("id")==true)
+			setMsg_id(bundleDate.getInt("id"));
+		
+		if(bundleDate.containsKey("dir")==true)
+			setMsg_call_dir(bundleDate.getBoolean("dir"));
+	}
 	public GuserMessage(String name,String caption, String description,String link, String picture, int id, Boolean call_dir)
 	{
 		setMsg_name(name);
@@ -25,7 +48,19 @@ public class GuserMessage {
 		setMsg_id(id);
 		setMsg_call_dir(call_dir);
 	}
-
+	public void Log()
+	{
+		Log.i("GuserMessage", "getMsg_name - " + this.getMsg_name());
+		Log.i("GuserMessage", "getMsg_caption - " + this.getMsg_caption());
+		Log.i("GuserMessage", "getMsg_description - " + this.getMsg_description());
+		Log.i("GuserMessage", "getMsg_link - " + this.getMsg_link());
+		Log.i("GuserMessage", "getMsg_picture - " + this.getMsg_picture());
+		Log.i("GuserMessage", "getMsg_id - " + this.getMsg_id());
+		Log.i("GuserMessage", "getMsg_call_dir - " + this.getMsg_call_dir());
+		Log.i("GuserMessage", "----------- END -----------");
+		
+	}
+	
 	/**
 	 * @return the msg_name
 	 */

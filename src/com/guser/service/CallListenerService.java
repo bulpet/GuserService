@@ -18,11 +18,11 @@ public class CallListenerService extends Service {
 	    // main thread, which we don't want to block.  We also make it
 	    // background priority so CPU-intensive work will not disrupt our UI.
 	    
-		 this.getApplicationContext()
-	      	.getContentResolver()
-	      		.registerContentObserver(
-	      				android.provider.CallLog.Calls.CONTENT_URI, true,
-	      					new CallsContentObserver(handler,this.getApplicationContext())); 
+//		 this.getApplicationContext()
+//	      	.getContentResolver()
+//	      		.registerContentObserver(
+//	      				android.provider.CallLog.Calls.CONTENT_URI, true,
+//	      					new CallsContentObserver(handler,this.getApplicationContext())); 
 		  
 	  }
 
