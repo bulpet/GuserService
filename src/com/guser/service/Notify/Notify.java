@@ -29,6 +29,8 @@ public class Notify {
 			
 			//put notify id for close the notify after action
 			intentCancel.putExtra(GlobalVariables.EXTRA_NotifyIdParamName, notifyId);
+			
+			intentFB.removeExtra(GlobalVariables.EXTRA_NotifyIdParamName);
 			intentFB.putExtra(GlobalVariables.EXTRA_NotifyIdParamName, notifyId);
 			
 			Bundle BundleMessage = new Bundle();
@@ -58,7 +60,7 @@ public class Notify {
 //			
 			
 			
-			
+			intentFB.removeExtra(GlobalVariables.EXTRA_NotifyGuserMessage);
 	        intentFB.putExtra(GlobalVariables.EXTRA_NotifyGuserMessage, BundleMessage);
 			
 	        

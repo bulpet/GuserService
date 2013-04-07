@@ -13,7 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class JSONParser {
 	 
@@ -30,7 +32,9 @@ public class JSONParser {
    	
 		try 
 		{
-			connection = new URL(url).openConnection();
+			//connection = new URL(url).openConnection();
+			Log.i("GuserService - getJSONFromUrl", "Uri.parse - " + Uri.parse(url).toString());
+			connection =  new URL(Uri.parse(url).toString()).openConnection();
 		} catch (MalformedURLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -48,7 +52,7 @@ public class JSONParser {
 		
 		try 
 		{
-			reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
+			reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 24);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

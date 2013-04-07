@@ -1,4 +1,4 @@
-package com.guser.service.common;
+package com.guser.service.quackers;
 
 import java.util.Random;
 
@@ -7,12 +7,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import com.guser.service.common.GuserMessage;
+import com.guser.service.common.JSONParser;
+
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.Log;
 
-public class LastFM extends AsyncTask<String, String, GuserMessage> {
+public class LastFM_TopChart extends AsyncTask<String, String, GuserMessage> {
 
 	@Override
 	protected GuserMessage doInBackground(String... arg0) {

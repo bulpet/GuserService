@@ -5,12 +5,12 @@ import android.util.Log;
 
 public class GuserMessage {
 
-	String msg_name;
-	String msg_caption;
-	String msg_description;
-	String msg_link;
-	String msg_picture;
-	int msg_id;
+	String msg_name = "";
+	String msg_caption = "";
+	String msg_description = "";
+	String msg_link = "";
+	String msg_picture = "";
+	int msg_id = 369;
 	Boolean msg_call_dir;
 	
 	public GuserMessage(){}

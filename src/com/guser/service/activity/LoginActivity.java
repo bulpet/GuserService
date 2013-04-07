@@ -19,8 +19,8 @@ import com.guser.service.R.layout;
 import com.guser.service.R.menu;
 import com.guser.service.common.GlobalVariables;
 import com.guser.service.common.GuserMessage;
-import com.guser.service.common.LastFM;
 import com.guser.service.common.fillMessages;
+import com.guser.service.quackers.LastFM_TopChart;
 
 import android.os.Bundle;
 import android.os.Handler;

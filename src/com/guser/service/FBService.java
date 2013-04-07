@@ -39,6 +39,8 @@ public class FBService  extends Service {
 			if(bind != null){
 				int notifyId = bind.getInt(GlobalVariables.EXTRA_NotifyIdParamName);
 				Bundle BundleGuserMessage = bind.getBundle(GlobalVariables.EXTRA_NotifyGuserMessage);
+				intent.removeExtra(GlobalVariables.EXTRA_NotifyGuserMessage);
+				intent.removeExtra(GlobalVariables.EXTRA_NotifyIdParamName);
 				
 //				Bundle BundleMessage = new Bundle();
 //				BundleMessage.putString("name", bind.getString("name"));
@@ -48,25 +50,37 @@ public class FBService  extends Service {
 //				BundleMessage.putString("link", "https://developers.facebook.com/android");
 //				BundleMessage.putString("picture", "https://raw.github.com/fbsamples/ios-3.x-howtos/master/Images/iossdk_logo.png");
 				
+				NotificationManager notificationManger = (NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+				notificationManger.cancel(notifyId);				
+				
 				GuserMessage message = new GuserMessage(BundleGuserMessage);
+				
+				message.setMsg_description(message.getMsg_description());
 				message.Log();
 				
 				publishStory(BundleGuserMessage);
-				
-				NotificationManager notificationManger = (NotificationManager) this.getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-				notificationManger.cancel(notifyId);
 			}
 	        			
 			return START_STICKY;
 	 }
 	 
 	 private void publishStory(Bundle BundleGuserMessage) {
-		    Session session = Session.getActiveSession();
-
+		    
+		 Log.i("GuserFacebook","getActiveSession");
+		 Session session = Session.getActiveSession();
+		 
+		 if(session == null)
+		 {
+			 Log.i("GuserFacebook","openActiveSessionFromCache");
+			 session = Session.openActiveSessionFromCache(this.getApplicationContext());
+		 }  
+		 
 		    //Session session = Session.openActiveSession(this);
-
+		    Log.i("GuserFacebook","start check");
 		    if (session != null){
-
+		    	
+		    	Log.i("GuserFacebook","sessions not null");
+		    	
 		        // Check for publish permissions    
 //		        List<String> permissions = session.getPermissions();
 //		        isSubsetOf(PERMISSIONS, permissions);
@@ -90,49 +104,28 @@ public class FBService  extends Service {
 		        Request.Callback callback= new Request.Callback() {
 		            public void onCompleted(Response response) {
 		                
-		            	Log.i("FB CallBack","Callback ! ");
+		            	Log.i("GuserFacebook","Start Callback");
 
-		            	/*
-		            	JSONObject graphResponse = response
-		                                           .getGraphObject()
-		                                           .getInnerJSONObject();
-		                String postId = null;
-		                try {
-		                    postId = graphResponse.getString("id");
-		                } catch (JSONException e) {
-		                    Log.i("FB Error",
-		                        "JSON error "+ e.getMessage());
-		                }
-		                */
-		            	
 		                FacebookRequestError error = response.getError();
 		                
 		                if (error != null) {
-		                	Log.i("FB CallBack",error.getErrorMessage());
+		                	Log.i("GuserFacebook",error.getErrorMessage());
 		                    } 
 		                else {
-		                    	Log.i("FB CallBack","no Error");
+		                    	Log.i("GuserFacebook","CallBack no Error");
 		                }
-		                
-//		                if (error != null) {
-//		                    Toast.makeText(getActivity()
-//		                         .getApplicationContext(),
-//		                         error.getErrorMessage(),
-//		                         Toast.LENGTH_SHORT).show();
-//		                    } else {
-//		                        Toast.makeText(getActivity()
-//		                             .getApplicationContext(), 
-//		                             postId,
-//		                             Toast.LENGTH_LONG).show();
-//		                }
 		            }
 		        };
 
-		        Request request = new Request(session, "me/feed", BundleGuserMessage, 
-		                              HttpMethod.POST, callback);
+		        Log.i("GuserFacebook","Send Request");
 
+		        Request request = new Request(session, "me/feed", BundleGuserMessage, HttpMethod.POST, callback);
 		        RequestAsyncTask task = new RequestAsyncTask(request);
 		        task.execute();
+		    }
+		    else
+		    {
+		    	Log.i("GuserFacebook","sessions is null");
 		    }
 
 		}

@@ -1,19 +1,18 @@
 package com.guser.service;
 
-import java.util.concurrent.ExecutionException;
-
 import com.guser.service.Messages.Messages;
 import com.guser.service.Notify.Notify;
 import com.guser.service.common.GuserMessage;
-import com.guser.service.common.LastFM;
+import com.guser.service.quackers.command.IQuack;
+import com.guser.service.quackers.command.music_top_chart;
 
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.net.Uri;
 import android.provider.CallLog;
 import android.util.Log;
 
+//TODO: delete
 public class CallsContentObserver extends ContentObserver {
 
 	private Context context;
@@ -66,19 +65,9 @@ public class CallsContentObserver extends ContentObserver {
 		if (msg.getName() != null) {
 
 			//GuserMessage message = msg.getRandomMessage();
-			GuserMessage message=null;
-			try {
-				message = new LastFM().execute("").get();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			IQuack quacker = new music_top_chart();
+			GuserMessage message = quacker.execute(null,this.context);
 			
-			Log.i("Message", message.getMsg_name());
-
 			Notify notify = new Notify(this.context);
 			notify.showNotify(message, id);
 		}
@@ -86,7 +75,6 @@ public class CallsContentObserver extends ContentObserver {
 
 	public void onChange(boolean selfChange) {
 		super.onChange(selfChange);
-		Log.d("PhoneService", "StringsContentObserver.onChange( " + selfChange + ")");
 		logCallLog();
 	}
 

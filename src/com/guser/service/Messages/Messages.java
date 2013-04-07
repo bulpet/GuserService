@@ -13,8 +13,9 @@ import com.guser.service.Notify.Notify;
 import com.guser.service.common.GlobalVariables;
 import com.guser.service.common.GuserCallTime;
 import com.guser.service.common.GuserMessage;
-import com.guser.service.common.LastFM;
+import com.guser.service.quackers.LastFM_TopChart;
 
+//TODO: delete
 public class Messages {
 
 	private Context context;
@@ -69,7 +70,7 @@ public class Messages {
 			//GuserMessage message = msg.getRandomMessage();
 			GuserMessage message=null;
 			try {
-				message = new LastFM().execute("").get();
+				message = new LastFM_TopChart().execute("").get();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
