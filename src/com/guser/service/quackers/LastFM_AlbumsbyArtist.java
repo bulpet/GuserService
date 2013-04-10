@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
