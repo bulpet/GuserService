@@ -37,10 +37,10 @@
         <activity
             android:name="com.guser.service.activity.LoginActivity"
             android:label="@string/title_activity_login" >
-<!--             <intent-filter> -->
-<!--                 <action android:name="android.intent.action.MAIN" /> -->
-<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
-<!--             </intent-filter> -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.facebook.LoginActivity" />
 		<activity
@@ -51,8 +51,8 @@
             android:name="com.guser.service.ArtistListActivity"
             android:label="@string/title_activity_artist_list" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+<!--                 <action android:name="android.intent.action.MAIN" /> -->
+<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
             </intent-filter>
         </activity>
         

@@ -65,7 +65,7 @@ public class Notify {
 			
 	        
 			PendingIntent pendingCancel = PendingIntent.getService(this.context.getApplicationContext(), notifyId, intentCancel, 0);
-			PendingIntent pendingFB = PendingIntent.getService(this.context.getApplicationContext(), notifyId, intentFB, 0);
+			PendingIntent pendingFB = PendingIntent.getService(this.context.getApplicationContext(), notifyId, intentFB, PendingIntent.FLAG_UPDATE_CURRENT);
 			
 			// Get the builder to create notification.
 			Builder builder = new Notification.Builder(this.context);

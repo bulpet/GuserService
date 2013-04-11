@@ -28,9 +28,7 @@ public class CallReceiver extends BroadcastReceiver {
 		Bundle bundle = intent.getExtras();
 		Set<String> keys = bundle.keySet();
 		
-		gutils utils = new gutils();
-		utils.res();
-		
+	
 		for (String key : keys) {
 	         Log.i("CallReceiver", key + "="+ bundle.getString(key));
 		}     
@@ -50,7 +48,11 @@ public class CallReceiver extends BroadcastReceiver {
 			{
 				if(new gutils().IsInternetConnected(context))
 				{
-					GuserMessage message = FillGuserMessage(context);
+					GuserMessage message = null;
+					message = FillGuserMessage(context);
+					
+					Log.i("GuserService - CallReceiver.onReceive()", " @@@@@@@@@");
+					message.Log();
 				
 					NotifyMessage(context,message);
 				}
@@ -82,14 +84,12 @@ public class CallReceiver extends BroadcastReceiver {
 		//load custom quacker (to be random)
 		IQuack quacker = null;
 		quacker = new music_top_chart();
-		//quacker = new call_information();
 
 		//execute quacker
 		GuserMessage message = quacker.execute(null, context);
-		
-		if(message!= null)
-			message.Log();
-		
+		Log.i("GuserService - CallReceiver.FillGuserMessage()", " @@@@@@@@@");
+		message.Log();
+				
 		return message;
 		
 	}

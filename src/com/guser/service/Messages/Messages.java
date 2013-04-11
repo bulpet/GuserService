@@ -68,17 +68,8 @@ public class Messages {
 		if (msg.getName() != null) {
 
 			//GuserMessage message = msg.getRandomMessage();
-			GuserMessage message=null;
-			try {
-				message = new LastFM_TopChart().execute("").get();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			GuserMessage message = new LastFM_TopChart().GetChartMessage();;
+						
 			Log.i("Message", message.getMsg_name());
 
 			Notify notify = new Notify(this.context);

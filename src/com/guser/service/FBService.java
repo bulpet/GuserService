@@ -15,6 +15,7 @@ import com.facebook.android.Facebook;
 import com.facebook.model.*;
 import com.guser.service.common.GlobalVariables;
 import com.guser.service.common.GuserMessage;
+import com.guser.service.utils.gutils;
 
 import android.app.NotificationManager;
 import android.app.Service;
@@ -67,6 +68,10 @@ public class FBService  extends Service {
 	 private void publishStory(Bundle BundleGuserMessage) {
 		    
 		 Log.i("GuserFacebook","getActiveSession");
+		gutils gu = new gutils();
+		gu.LogBundle(BundleGuserMessage);
+			
+			
 		 Session session = Session.getActiveSession();
 		 
 		 if(session == null)

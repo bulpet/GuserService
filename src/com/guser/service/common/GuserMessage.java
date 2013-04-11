@@ -1,5 +1,7 @@
 package com.guser.service.common;
 
+import com.guser.service.utils.gutils;
+
 import android.os.Bundle;
 import android.util.Log;
 
@@ -15,28 +17,31 @@ public class GuserMessage {
 	
 	public GuserMessage(){}
 	
-	public GuserMessage(Bundle bundleDate)
+	public GuserMessage(Bundle bundleData)
 	{
-		if(bundleDate.containsKey("name")==true)
-			setMsg_name(bundleDate.getString("name"));
+		gutils gu = new gutils();
+		gu.LogBundle(bundleData);
 		
-		if(bundleDate.containsKey("caption")==true)
-			setMsg_caption(bundleDate.getString("caption"));
+		if(bundleData.containsKey("name")==true)
+			setMsg_name(bundleData.getString("name"));
+		
+		if(bundleData.containsKey("caption")==true)
+			setMsg_caption(bundleData.getString("caption"));
 
-		if(bundleDate.containsKey("description")==true)
-			setMsg_description(bundleDate.getString("description"));
+		if(bundleData.containsKey("description")==true)
+			setMsg_description(bundleData.getString("description"));
 		
-		if(bundleDate.containsKey("link")==true)
-			setMsg_link(bundleDate.getString("link"));
+		if(bundleData.containsKey("link")==true)
+			setMsg_link(bundleData.getString("link"));
 		
-		if(bundleDate.containsKey("picture")==true)
-			setMsg_picture(bundleDate.getString("picture"));
+		if(bundleData.containsKey("picture")==true)
+			setMsg_picture(bundleData.getString("picture"));
 		
-		if(bundleDate.containsKey("id")==true)
-			setMsg_id(bundleDate.getInt("id"));
+		if(bundleData.containsKey("id")==true)
+			setMsg_id(bundleData.getInt("id"));
 		
-		if(bundleDate.containsKey("dir")==true)
-			setMsg_call_dir(bundleDate.getBoolean("dir"));
+		if(bundleData.containsKey("dir")==true)
+			setMsg_call_dir(bundleData.getBoolean("dir"));
 	}
 	public GuserMessage(String name,String caption, String description,String link, String picture, int id, Boolean call_dir)
 	{

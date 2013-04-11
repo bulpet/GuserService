@@ -6,22 +6,21 @@ import java.util.Set;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.guser.service.quackers.command.IQuack;
 
 public class gutils {
 
-	public void res()
+	public void LogBundle(Bundle bundleData)
 	{
-//		Reflections reflections = new Reflections("com.guser.service.quacker.command");
-//
-//	     Set<Class<? extends IQuack>> subTypes = reflections.getSubTypesOf(IQuack.class);
-//	     
-//	     Long i = (long) subTypes.size();
-//
-//	     Log.i("Reflaction", i.toString());
-	     //Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(SomeAnnotation.class);
+		for (String key : bundleData.keySet()) {
+		    Object value = bundleData.get(key);
+		    Log.i("GuserService - Bundle data", String.format("%s %s (%s)", key, value.toString(), value.getClass().getName()));
+		}
+		
+		Log.i("GuserService - Bundle data", "------------ END ------------");
 	}
 	
 	public int GetRandomInt(int min,int max)

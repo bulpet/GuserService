@@ -3,11 +3,12 @@ package com.guser.service.quackers;
 import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import org.apache.commons.*;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,17 +18,17 @@ import android.util.Log;
 
 import com.guser.service.common.GuserMessage;
 import com.guser.service.common.JSONParser;
+import com.guser.service.utils.DownloadJsonTask;
 import com.guser.service.utils.gutils;
 
-public class LastFM_AlbumsbyArtist extends
-		AsyncTask<String, String, GuserMessage> {
+public class LastFM_AlbumsbyArtist {
 
 	String API_AlbumsByArtist = "http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&api_key=a5bb63698ee1496d74a14f9ce0d308be&format=json&artist=%s";
 	String API_TracksByAlbum = "http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=a5bb63698ee1496d74a14f9ce0d308be&format=json&artist=%s&album=%s";
 	String API_LyricTrack = "http://metrolyrics.com/api/v1/search/artistsong/artist/%s/song/%s/X-API-KEY/1234567890123456789012345678901234567890";
 	String artist = "Justin Bieber";
 
-	protected GuserMessage doInBackground(String... arg0) {
+	public GuserMessage GetTrackFromAlbumsByArtist(String artist) {
 
 		String AlbumName = "";
 		//String ArtistName = "";
@@ -38,16 +39,25 @@ public class LastFM_AlbumsbyArtist extends
 		String TrackName = "";
 		String TrackUrl = "";
 		String TrackDuration= "";
-		JSONParser parser = new JSONParser();
+		//JSONParser parser = new JSONParser();
 		GuserMessage msg = null;
-		//gutils utls = new gutils();
+		JSONObject object = null;
 
 		String url = String.format(API_AlbumsByArtist, artist.replace(" ", "%20"));
 		Log.i("GuserService - Get AlbumsByArtist", "url - " + url);
 		
 		
 		
-		JSONObject object = parser.getJSONFromUrl(url);
+		//JSONObject object = parser.getJSONFromUrl(url);
+		try {
+			object = new DownloadJsonTask().execute(url).get();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+			return null;
+		} catch (ExecutionException e1) {
+			e1.printStackTrace();
+			return null;
+		}
 		JSONObject album = GetAlbumObject(object);
 
 		if(album == null)
@@ -70,26 +80,56 @@ public class LastFM_AlbumsbyArtist extends
 		url = String.format(API_TracksByAlbum, artist.replace(" ", "%20"), AlbumName.replace(" ", "%20"));
 		Log.i("GuserService - Get TracksByAlbum", "url - " + url);
 		
-		object = parser.getJSONFromUrl(url);
-		JSONObject track = GetTrackObject(object);
-		
-		if(track == null)
-			return null;
-		
+		//object = parser.getJSONFromUrl(url);
 		try {
-			TrackName = track.getString("name");
-			TrackUrl = track.getString("url");
-			TrackDuration = track.getString("duration");
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			object = new DownloadJsonTask().execute(url).get();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+			return null;
+		} catch (ExecutionException e1) {
+			e1.printStackTrace();
 			return null;
 		}
-
-		/* get lyric by track and artist */
-		lyric = GetLyricByArtistTrack(artist.replace(" ", "%20"),TrackName.replace(" ", "%20"));
-
+		
+		
+		
+		
+//		do
+//		{
+			JSONObject track = GetTrackObject(object);
+			
+			if(track == null)
+				return null;
+			
+			try {
+				TrackName = track.getString("name");
+				TrackUrl = track.getString("url");
+				TrackDuration = track.getString("duration");
+	
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+	
+			/* get lyric by track and artist */
+			Log.i("LAST-FM - LYRIC escapeHtml", "artist - " + Html.escapeHtml(artist));
+			Log.i("LAST-FM - LYRIC htmlEncode", "artist - " + TextUtils.htmlEncode(artist));
+			Log.i("LAST-FM - LYRIC", "--------------------------------------");
+			Log.i("LAST-FM - LYRIC escapeHtml", "artist - " + Html.escapeHtml(TrackName));
+			Log.i("LAST-FM - LYRIC htmlEncode", "artist - " + TextUtils.htmlEncode(TrackName));
+			
+			
+			lyric = GetLyricByArtistTrack(artist.replace(" ", "%20"),TrackName.replace(" ", "%20"));
+			
+			if(lyric == null || lyric.equals(""))
+			{
+				lyric = GetAlbumSummary(object);
+			}
+//		}
+//		while(lyric == null || lyric.equals(""));
+		
+		
 		
 		msg = new GuserMessage();
 
@@ -108,14 +148,24 @@ public class LastFM_AlbumsbyArtist extends
 		String lyricUrl = String.format(API_LyricTrack, Artist, Track);
 		
 		Log.i("GuserService - Get Lyric", "url - " + lyricUrl);
-		JSONObject object = new JSONParser().getJSONFromUrl(lyricUrl);
+		//JSONObject object = new JSONParser().getJSONFromUrl(lyricUrl);
+		JSONObject object;
+		try {
+			object = new DownloadJsonTask().execute(lyricUrl).get();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+			return null;
+		} catch (ExecutionException e1) {
+			e1.printStackTrace();
+			return null;
+		}
 
 		if (object != null) {
 			try {
 				returnedValue = object.getJSONArray("items").getJSONObject(0).getString("snippet");
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return null;
 			}
 		}
 		
@@ -149,6 +199,19 @@ public class LastFM_AlbumsbyArtist extends
 		return returnedValue;
 	}
 	
+	public String GetAlbumSummary(JSONObject albumJson)
+	{
+		String returnedValue = "";
+		try {
+			returnedValue = albumJson.getJSONObject("album").getJSONObject("wiki").getString("summary");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Log.i("GuserService - Album Summary", returnedValue);
+		return returnedValue;
+	}
+	
 	public JSONObject GetTrackObject(JSONObject albumJson) {
 		JSONArray jarr = null;
 		JSONObject returnedValue = null;
@@ -157,8 +220,8 @@ public class LastFM_AlbumsbyArtist extends
 		{
 			
 			jarr = albumJson.getJSONObject("album").getJSONObject("tracks").getJSONArray("track");
-			int count = jarr.length();
-			int randomTrack = new gutils().GetRandomInt(1, count);
+			int count = jarr.length() -1;
+			int randomTrack = new gutils().GetRandomInt(0, count);
 
 			returnedValue = jarr.getJSONObject(randomTrack);
 		} 
