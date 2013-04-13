@@ -29,8 +29,8 @@ public class ArtistInfo  extends AsyncTask<String, Void, Bundle> {
 			name = artistJson.getString("name");
 			imgUrl = artistJson.getJSONArray("image").getJSONObject(2).getString("#text");
 		
-			data.putString("artistName", name);
-			data.putString("artistImageUrl", imgUrl);
+			data.putString(GlobalVariables.DB_ARTIST_FIELD_artistName, name);
+			data.putString(GlobalVariables.DB_ARTIST_FIELD_artistImageUrl, imgUrl);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

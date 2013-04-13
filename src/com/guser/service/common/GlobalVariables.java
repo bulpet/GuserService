@@ -24,6 +24,16 @@ public class GlobalVariables {
 	public static String DB_TABLE_GUSER_MESSAGES 	= "messages";
 	
 	
+	
+	public static String DB_ARTIST_FIELD_artistName 		= "artist_name";
+	public static String DB_ARTIST_FIELD_artistImageUrl 	= "artist_image_url";
+	public static String DB_ARTIST_FIELD_artistPail 		= "artist_pail";
+	public static String DB_ARTIST_FIELD_artistID 			= "artist_ID";
+	public static int DB_ARTIST_DATABASEVERSION 			= 1;
+	public static String DB_ARTIST_DATABASENAME 			= "guserDB";
+	public static String DB_ARTIST_TABLENAME 				= "FavoriteArtist";
+	
+	
     public static String FB_Ppermissions[] = { "publish_stream", "user_photos", "publish_checkins", "photo_upload"};
 //    
 //	    "user_about_me",

@@ -2,7 +2,11 @@ package com.guser.service.activity.fragments;
 
 import java.util.concurrent.ExecutionException;
 
+import com.guser.service.ArtistListActivity;
 import com.guser.service.R;
+import com.guser.service.DB.ArtistDBHandler;
+import com.guser.service.activity.ArtistList;
+import com.guser.service.common.GlobalVariables;
 import com.guser.service.utils.DownloadImageTask;
 
 import android.app.Fragment;
@@ -15,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class artist  extends Fragment{
+public class FragmentArtist  extends Fragment{
 	
 	EditText txtEdit;
 	ImageButton btnSearch;
@@ -47,14 +51,20 @@ public class artist  extends Fragment{
 					e.printStackTrace();
 				}
 				
-				if(data.containsKey("artistName"))
+				if(data.containsKey(GlobalVariables.DB_ARTIST_FIELD_artistName))
 				{
-					String tmp = data.getString("artistName").toString().toUpperCase();
-					String url = data.getString("artistImageUrl").toString();
+					String tmp = data.getString(GlobalVariables.DB_ARTIST_FIELD_artistName).toString().toUpperCase();
+					String url = data.getString(GlobalVariables.DB_ARTIST_FIELD_artistImageUrl).toString();
 					
 					if(artistName.toUpperCase().equals(tmp))
 					{
 						new DownloadImageTask(imgArtist).execute(url);
+						
+						ArtistDBHandler dbHandler = new ArtistDBHandler(getActivity().getApplicationContext());
+						dbHandler.addArtist(tmp, url);
+						
+						ArtistListActivity art = (ArtistListActivity)getActivity();
+						art.AddNewArtistFragment();
 					}
 
 				}

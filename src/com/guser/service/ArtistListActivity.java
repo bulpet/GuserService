@@ -1,7 +1,12 @@
 package com.guser.service;
 
+import com.guser.service.activity.fragments.FragmentArtist;
+
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.view.Menu;
 
 public class ArtistListActivity extends Activity {
@@ -19,4 +24,19 @@ public class ArtistListActivity extends Activity {
 		return true;
 	}
 
+	public void AddNewArtistFragment()
+	{
+		FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        
+        fm.beginTransaction();
+        Fragment fragOne = new FragmentArtist();
+//        Bundle arguments = new Bundle();
+//        arguments.putBoolean("shouldYouCreateAChildFragment", true);
+//        fragOne.setArguments(arguments);
+        ft.add(R.id.artistListLayout, fragOne);
+        ft.commit();
+        
+	}
+	
 }

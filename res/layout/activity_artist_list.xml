@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/artistListLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -14,14 +15,28 @@
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
 
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="com.guser.service.activity.fragments.artist"
+    
+
+    <LinearLayout
+        android:id="@id/artistListLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="28dp" />
+        android:layout_alignLeft="@+id/artistListLayout"
+        android:layout_alignRight="@+id/artistListLayout"
+        android:layout_below="@+id/fragment1"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical" >
+
+	        <fragment
+	        android:id="@+id/fragment1"
+	        android:name="com.guser.service.activity.fragments.FragmentArtist"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/textView1"
+	        android:layout_marginTop="28dp" />
+	        
+    </LinearLayout>
 
 </RelativeLayout>
