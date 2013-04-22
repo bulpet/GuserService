@@ -28,8 +28,8 @@ public class GlobalVariables {
 	public static String DB_ARTIST_FIELD_artistName 		= "artist_name";
 	public static String DB_ARTIST_FIELD_artistImageUrl 	= "artist_image_url";
 	public static String DB_ARTIST_FIELD_artistPail 		= "artist_pail";
-	public static String DB_ARTIST_FIELD_artistID 			= "artist_ID";
-	public static int DB_ARTIST_DATABASEVERSION 			= 1;
+	public static String DB_ARTIST_FIELD_artistID 			= "_id";
+	public static int DB_ARTIST_DATABASEVERSION 			= 3;
 	public static String DB_ARTIST_DATABASENAME 			= "guserDB";
 	public static String DB_ARTIST_TABLENAME 				= "FavoriteArtist";
 	

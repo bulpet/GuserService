@@ -47,6 +47,22 @@ public class ArtistDBHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
 	
+	public Cursor fetchAllArtist()
+	{
+//		String countQuery = "SELECT * FROM " + GlobalVariables.DB_ARTIST_TABLENAME + 
+//					" WHERE " + GlobalVariables.DB_ARTIST_FIELD_artistPail + " = true";
+	
+		String countQuery = "SELECT * FROM " + GlobalVariables.DB_ARTIST_TABLENAME ;
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.rawQuery(countQuery, null);
+		
+		 if (cursor != null) {
+			 cursor.moveToFirst();
+		  }
+
+		return cursor;
+	}
 	 public Bundle GetRandomArtist()
 	    {
 	    	 String countQuery = "SELECT * FROM " + GlobalVariables.DB_ARTIST_TABLENAME + 

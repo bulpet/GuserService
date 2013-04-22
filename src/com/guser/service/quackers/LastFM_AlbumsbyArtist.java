@@ -112,15 +112,23 @@ public class LastFM_AlbumsbyArtist {
 				return null;
 			}
 	
+			String tmpLyric = TrackName;
+	
+			if(tmpLyric.indexOf("(") >-1)
+			{
+				int i = tmpLyric.indexOf("(");
+				tmpLyric = tmpLyric.substring(0,i);
+			}
+			
 			/* get lyric by track and artist */
-			Log.i("LAST-FM - LYRIC escapeHtml", "artist - " + Html.escapeHtml(artist));
-			Log.i("LAST-FM - LYRIC htmlEncode", "artist - " + TextUtils.htmlEncode(artist));
-			Log.i("LAST-FM - LYRIC", "--------------------------------------");
-			Log.i("LAST-FM - LYRIC escapeHtml", "artist - " + Html.escapeHtml(TrackName));
-			Log.i("LAST-FM - LYRIC htmlEncode", "artist - " + TextUtils.htmlEncode(TrackName));
+//			Log.i("LAST-FM - LYRIC escapeHtml", "artist - " + Html.escapeHtml(artist));
+//			Log.i("LAST-FM - LYRIC htmlEncode", "artist - " + TextUtils.htmlEncode(artist));
+//			Log.i("LAST-FM - LYRIC", "--------------------------------------");
+//			Log.i("LAST-FM - LYRIC escapeHtml", "artist - " + Html.escapeHtml(tmpLyric));
+//			Log.i("LAST-FM - LYRIC htmlEncode", "artist - " + TextUtils.htmlEncode(tmpLyric));
 			
 			
-			lyric = GetLyricByArtistTrack(artist.replace(" ", "%20"),TrackName.replace(" ", "%20"));
+			lyric = GetLyricByArtistTrack(artist.replace(" ", "%20"),tmpLyric.replace(" ", "%20"));
 			
 			if(lyric == null || lyric.equals(""))
 			{

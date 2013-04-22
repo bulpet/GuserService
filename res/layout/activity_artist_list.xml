@@ -1,21 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/artistListLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ArtistListActivity" >
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    
 
     <LinearLayout
         android:id="@id/artistListLayout"
@@ -23,20 +15,73 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/artistListLayout"
         android:layout_alignRight="@+id/artistListLayout"
-        android:layout_below="@+id/fragment1"
-        android:layout_marginTop="50dp"
-        android:orientation="vertical" >
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+        
+        <EditText
+            android:id="@+id/artistTextEditor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|left|center_vertical|center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="2"
+            android:ems="10"
+            android:inputType="textPersonName" >
 
-	        <fragment
-	        android:id="@+id/fragment1"
-	        android:name="com.guser.service.activity.fragments.FragmentArtist"
+<!-- 	       <requestFocus android:layout_height="match_parent" /> -->
+
+	   </EditText>
+  	
+        <ImageButton
+	        android:id="@+id/imageBtnSearch"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentRight="true"
-	        android:layout_below="@+id/textView1"
-	        android:layout_marginTop="28dp" />
+	        android:layout_alignTop="@id/artistListLayout"
+	        android:layout_toRightOf="@id/artistListLayout"
+	        android:layout_weight="1"
+	        android:onClick="onClick"
+	        android:src="@drawable/ic_action_search" />
+   
+        <ImageView
+            android:id="@+id/imageArtist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        	android:layout_alignTop="@id/artistListLayout"
+	        android:layout_toRightOf="@id/artistListLayout"
+            android:layout_weight="1"
+            android:src="@android:drawable/btn_star" />
+
+<!-- 	        <fragment -->
+<!-- 	        android:id="@+id/fragment1" -->
+<!-- 	        android:name="com.guser.service.activity.fragments.FragmentArtist" -->
+<!-- 	        android:layout_width="wrap_content" -->
+<!-- 	        android:layout_height="wrap_content" -->
+<!-- 	        android:layout_alignParentLeft="true" -->
+<!-- 	        android:layout_alignParentRight="true" -->
+<!-- 	        android:layout_below="@+id/textView1" -->
+<!-- 	        android:layout_marginTop="28dp" /> -->
 	        
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/artistListLayoutList2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical" >
+	    
+	    <ListView
+	        android:id="@+id/artist_listview"
+	        android:layout_width="wrap_content"
+	        android:layout_height="290dp"
+	        android:layout_alignParentEnd="false"
+	        android:layout_alignParentStart="false"
+	        android:contentDescription="list of artist to publish"
+	        android:footerDividersEnabled="true"
+	        android:headerDividersEnabled="true" >
+	        
+	    </ListView>
+
+  	</LinearLayout>
 
 </RelativeLayout>

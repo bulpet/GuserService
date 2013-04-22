@@ -48,7 +48,7 @@
             android:label="@string/title_activity_quackers" >
         </activity>
         <activity
-            android:name="com.guser.service.ArtistListActivity"
+            android:name="com.guser.service.activity.ArtistList"
             android:label="@string/title_activity_artist_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
